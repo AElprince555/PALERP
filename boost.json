@@ -1,0 +1,13 @@
+{
+    "agents": [
+        "junie",
+        "gemini"
+    ],
+    "guidelines": true,
+    "skills": [
+        "laravel-best-practices",
+        "livewire-development",
+        "pest-testing",
+        "tailwindcss-development"
+    ]
+}
