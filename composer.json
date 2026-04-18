@@ -10,10 +10,24 @@
     "license": "MIT",
     "require": {
         "php": "^8.5",
+        "cknow/laravel-money": "^8.5",
+        "dedoc/scramble": "^0.13.18",
+        "laravel/fortify": "^1.36",
         "laravel/framework": "^13.0",
+        "laravel/horizon": "^5.45",
+        "laravel/scout": "^11.1",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.2",
-        "robsontenorio/mary": "^2.8"
+        "maatwebsite/excel": "^3.1",
+        "nnjeim/world": "^1.1",
+        "nwidart/laravel-modules": "^13.0",
+        "robsontenorio/mary": "^2.8",
+        "spatie/laravel-activitylog": "^5.0",
+        "spatie/laravel-backup": "^10.2",
+        "spatie/laravel-deleted-models": "^1.2",
+        "spatie/laravel-medialibrary": "^11.0",
+        "spatie/laravel-pdf": "^2.6",
+        "spatie/laravel-permission": "^7.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -85,7 +99,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "stable",

@@ -4,40 +4,52 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Inter", "Tajawal", 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* تعريف الألوان كـ Variables في Tailwind */
+    --color-primary: oklch(35% 0.15 150);
+    --color-primary-content: oklch(100% 0 0);
+    --color-secondary: oklch(0% 0 0);
+    --color-secondary-content: oklch(100% 0 0);
+    --color-accent: oklch(45% 0.2 25);
+    --color-accent-content: oklch(100% 0 0);
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(98% 0 0);
+    --color-base-300: oklch(95% 0 0);
+    --color-base-content: oklch(0% 0 0);
 }
 
-
-
-/**
-    The lines above are intact.
-    The lines below were added by maryUI installer.
-*/
-
-/** daisyUI */
+/* تعديل هنا: تعريف الثيم لـ DaisyUI */
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
+    themes: palestine, light, dark;
 }
 
-/* maryUI */
-@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
-@source "../../vendor/robsontenorio/mary/src/View/Components";
+/* الربط المباشر لمتغيرات DaisyUI */
+[data-theme="palestine"] {
+    --p: 35% 15% 150;    /* Primary: Green */
+    --pc: 0% 0% 100%;    /* Primary Content: White */
+    --s: 0% 0% 0%;       /* Secondary: Black */
+    --sc: 0% 0% 100%;    /* Secondary Content: White */
+    --a: 45% 20% 25;     /* Accent: Red */
+    --ac: 0% 0% 100%;    /* Accent Content: White */
+    --b1: 100% 0% 100%;  /* Base 100: White */
+    --bc: 0% 0% 0%;      /* Base Content: Black */
+}
 
-/* Theme toggle */
-@custom-variant dark (&:where(.dark, .dark *));
+@layer components {
+    .sidebar-palestine {
+        /* نستخدم الألوان المعرفة فوق */
+        background-color: var(--color-secondary);
+        color: var(--color-secondary-content);
+        @apply border-l border-base-300 shadow-xl;
+    }
+}
 
-/**
-* Paginator - Traditional style
-* Because Laravel defaults does not match well the design of daisyUI.
-*/
-
+/* تعديلات ماري */
 .mary-table-pagination span[aria-current="page"] > span {
     @apply bg-primary text-base-100
 }
 
-.mary-table-pagination button {
-    @apply cursor-pointer
-}
