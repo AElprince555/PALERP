@@ -88,4 +88,23 @@ class Module extends Model
 
         return null;
     }
+    public function getBreadcrumbs(): array
+    {
+        $breadcrumbs = [];
+        $current = $this;
+
+        while ($current) {
+            // نضع العنصر في بداية المصفوفة ليكون الترتيب من الأكبر للأصغر
+            array_unshift($breadcrumbs, [
+                'name' => $current->name, // سيتم ترجمته تلقائياً بفضل Spatie
+                'url'  => $current->route ? route($current->route) : '#',
+                'icon' => $current->icon
+            ]);
+
+            // ننتقل للأب
+            $current = $current->parent;
+        }
+
+        return $breadcrumbs;
+    }
 }

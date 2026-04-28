@@ -5,6 +5,7 @@ use Modules\Finance\Http\Controllers\FinanceController;
 use Modules\Finance\Livewire\Gl\AccountsChart;
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('finances', FinanceController::class)->names('finance');
-    Route::get('/finance/gl/accounts', AccountsChart::class)->name('finance.gl.accounts');
+    Route::get('finance', AccountsChart::class)->name('finance');
+    Route::get('/fin/gl/coa', AccountsChart::class)->name('finance.gl.tree');
+    Route::get('/fin/gl', AccountsChart::class)->name('finance.gl');
 });

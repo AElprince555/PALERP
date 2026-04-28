@@ -1,12 +1,14 @@
 <?php
 
 use App\Models\Module;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Volt\Component;
 
 new class extends Component {
     public Module $module;
 
-    public function mount(Module $module)
+    #[NoReturn]
+    public function mount(Module $module): void
     {
         $this->module = $module;
     }
@@ -42,4 +44,3 @@ new class extends Component {
             </div>
         @endif
     </div>
-</div>
