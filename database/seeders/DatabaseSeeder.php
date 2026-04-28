@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@palerp.com',
             'password' => 'password',
         ]);
+        $this->call([
+            General\Settings\ModuleSystemSeeder::class,
+        ]);
     }
 }
