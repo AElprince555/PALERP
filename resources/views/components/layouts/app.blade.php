@@ -16,7 +16,6 @@
         </style>
     </head>
     <body class="min-h-screen antialiased bg-base-200"> {{-- تم إزالة كلاس full-width الخاطئ من هنا --}}
-
         {{-- NAVBAR mobile only --}}
         <x-mary-nav sticky class="lg:hidden bg-primary text-primary-content">
             <x-slot:brand>

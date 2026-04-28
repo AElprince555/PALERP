@@ -1,0 +1,10 @@
+{
+    "General": true,
+    "Finance": true,
+    "Inventory": true,
+    "HumanResources": true,
+    "Purchasing": true,
+    "Sales": true,
+    "CRM": true,
+    "Projects": true
+}

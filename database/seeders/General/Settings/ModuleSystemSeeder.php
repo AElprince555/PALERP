@@ -135,7 +135,7 @@ class ModuleSystemSeeder extends Seeder
                 [
                     'name'           => $data['name'],
                     'description'    => $data['description'],
-                    'type'           => 'folder',
+                    'type'           => 'sector',
                     'icon'           => $data['icon'],
                     'route'          => $data['route'], // هنا التعديل الجديد
                     'sort_order'     => $data['sort'],

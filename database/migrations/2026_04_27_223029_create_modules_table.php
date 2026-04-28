@@ -19,11 +19,14 @@ return new class extends Migration
             $table->json('description')->nullable();
 
             $table->unsignedTinyInteger('level')->default(1)->index();
-            $table->enum('type',['folder','app','mix'])->default('folder');
+            $table->enum('type',['sector','folder','app','mix'])->default('folder');
 
             $table->string('icon')->default('o-folder');
             $table->string('route')->nullable();
             $table->integer('sort_order')->default(0);
+            $table->string('component_name')->nullable();
+            $table->string('view_name')->nullable();
+            $table->string('form_name')->nullable();
 
             $table->boolean('is_active')->default(true)->index();
             $table->json('settings')->nullable();

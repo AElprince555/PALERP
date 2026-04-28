@@ -18,6 +18,7 @@
         "laravel/scout": "^11.1",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.2",
+        "livewire/volt": "^1.10",
         "maatwebsite/excel": "^3.1",
         "nnjeim/world": "^1.1",
         "nwidart/laravel-modules": "^13.0",
@@ -27,7 +28,9 @@
         "spatie/laravel-deleted-models": "^1.2",
         "spatie/laravel-medialibrary": "^11.0",
         "spatie/laravel-pdf": "^2.6",
-        "spatie/laravel-permission": "^7.3"
+        "spatie/laravel-permission": "^7.3",
+        "spatie/laravel-translatable": "^6.14",
+        "wikimedia/composer-merge-plugin": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -91,6 +94,18 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "Modules/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
         }
     },
     "config": {
