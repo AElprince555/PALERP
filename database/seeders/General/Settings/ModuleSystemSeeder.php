@@ -46,7 +46,7 @@ class ModuleSystemSeeder extends Seeder
             'FIN' => [
                 'sort' => 2,
                 'icon' => 'o-banknotes',
-                'name' => ['ar' => 'الإدارة المالية', 'en' => 'Financials'],
+                'name' => ['ar' => 'الإدارة المالية', 'en' => 'Financial'],
                 'description' => [
                     'ar' => 'إدارة الدورة المحاسبية الكاملة، الأستاذ العام، والأصول الثابتة.',
                     'en' => 'Full accounting cycle management, GL, and fixed assets.'

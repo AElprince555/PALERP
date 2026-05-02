@@ -21,7 +21,7 @@
                         class="btn-circle btn-ghost btn-xs text-accent hover:bg-accent/20"
                         tooltip="{{ __('خروج') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();" />
-                    <form id="logout-form" action="/logout" method="POST" class="hidden">@csrf</form>
+                    <form id="logout-form" action="{{route("logout")}}" method="POST" class="hidden">@csrf</form>
                 </x-slot:actions>
             </x-mary-list-item>
         </div>

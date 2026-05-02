@@ -7,12 +7,7 @@ Route::middleware(['guest'])->group(function () {
 
 // مسارات النظام (بعد الدخول)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('/',function (){
-       return redirect()->route('dashboard');
-    });
+    Route::livewire('/','home');
 
 });
 
