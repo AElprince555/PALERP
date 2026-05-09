@@ -2,12 +2,12 @@
 
 namespace App\Livewire\System;
 
-use App\Models\Module;
 use App\Actions\System\GetSubModulesAction;
+use App\Models\Module;
 use Illuminate\Contracts\View\View;
-use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
+use Livewire\Component;
 
 class Sector extends Component
 {
@@ -29,8 +29,8 @@ class Sector extends Component
         if ($module?->exists) {
             $this->moduleId = $module->id;
         } else {
-            // التقاط الكود من المسار دون تنفيذ أي Database Query
-            $this->moduleCode = collect(request()->segments())->last();
+            // التقاط أول مقطع من المسار (مثال: /fin -> fin)
+            $this->moduleCode = request()->segment(1);
         }
     }
 
@@ -41,7 +41,7 @@ class Sector extends Component
     #[Computed(persist: true)]
     public function module(): Module
     {
-        $query = Module::query()->select(['id', 'code', 'name', 'icon', 'description']);
+        $query = Module::query()->select(['id', 'code', 'name', 'icon', 'description', 'route', 'parent_id']);
 
         // إذا كان لدينا الـ ID (في الطلبات اللاحقة عبر الـ Livewire Hydration)
         if ($this->moduleId) {
@@ -49,7 +49,8 @@ class Sector extends Component
         }
 
         // في أول تحميل للصفحة (Initial Load)
-        $module = $query->where('code', $this->moduleCode)->firstOrFail();
+        // نقوم بتحويل الكود للأحرف الكبيرة لمطابقة قاعدة البيانات (FIN, HR, etc.)
+        $module = $query->where('code', strtoupper($this->moduleCode))->firstOrFail();
 
         // نحفظ الـ ID للطلبات القادمة (لضمان سرعة الاستعلام)
         $this->moduleId = $module->id;
@@ -71,6 +72,8 @@ class Sector extends Component
     {
         return view('livewire.system.sector')
             ->title($this->module->name ?? $this->module->code)
-            ->layout('components.layouts.app');
+            ->layout('layouts.app', [
+                'breadcrumbs' => $this->module->getBreadcrumbs(),
+            ]);
     }
 }

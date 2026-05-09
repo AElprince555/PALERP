@@ -9,7 +9,7 @@ uses(RefreshDatabase::class);
  * اختبار: التأكد من تحويل المستخدم غير المسجل لصفحة الدخول
  */
 test('unauthenticated users are redirected to login', function () {
-    $this->get('/dashboard')
+    $this->get('/')
         ->assertStatus(302)
         ->assertRedirect('/login');
 });
@@ -36,7 +36,7 @@ test('users can authenticate using the login screen', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect('/dashboard');
+    $response->assertRedirect('/');
 });
 
 /**
@@ -50,8 +50,8 @@ test('authenticated users can access dashboard', function () {
     // إيقاف إخفاء الأخطاء لإظهار السبب الحقيقي لخطأ 500 في الـ Terminal
     $this->withoutExceptionHandling();
 
-    // محاولة الدخول كـ User وطلب الـ Dashboard
+    // محاولة الدخول كـ User وطلب الصفحة الرئيسية
     $this->actingAs($user)
-        ->get('/dashboard')
+        ->get('/')
         ->assertStatus(200);
 });

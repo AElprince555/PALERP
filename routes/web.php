@@ -7,8 +7,7 @@ Route::middleware(['guest'])->group(function () {
 
 // مسارات النظام (بعد الدخول)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::livewire('/','home');
-
+    Route::livewire('/', 'home');
 });
 
 Route::fallback(function () {

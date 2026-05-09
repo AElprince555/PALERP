@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 class Module extends Model
@@ -13,15 +15,17 @@ class Module extends Model
 
     // حماية الـ ID فقط والسماح بالباقي (بما فيها الأعمدة الجديدة)
     protected $guarded = ['id'];
-    public array $translatable = ['name' , 'description'];
+
+    public array $translatable = ['name', 'description'];
+
     protected function casts(): array
     {
         return [
-            'name'        => 'array',
+            'name' => 'array',
             'description' => 'array',
-            'settings'    => AsArrayObject::class,
-            'metadata'    => AsArrayObject::class,
-            'is_active'   => 'boolean',
+            'settings' => AsArrayObject::class,
+            'metadata' => AsArrayObject::class,
+            'is_active' => 'boolean',
         ];
     }
 
@@ -29,12 +33,12 @@ class Module extends Model
     // العلاقات (Relationships)
     // ==========================================
 
-    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Module::class, 'parent_id');
     }
 
-    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(Module::class, 'parent_id');
     }
@@ -58,17 +62,17 @@ class Module extends Model
     public function getResolvedComponent(): string
     {
         // 1. إذا كان هناك مكون مخصص في قاعدة البيانات، نستخدمه
-        if (!empty($this->component_name)) {
+        if (! empty($this->component_name)) {
             return $this->component_name;
         }
 
         // 2. إذا لم يوجد، نستخدم مكونات Volt العامة التي قمنا بإنشائها
         // لاحظ أننا نستخدم الاسم المختصر (Alias) الخاص بـ Volt/Livewire
-        return match($this->type) {
+        return match ($this->type) {
             'folder' => 'system.generic-folder',
-            'app'    => 'system.generic-app',
-            'mix'    => 'system.generic-mix', // الـ Mix يعمل كـ Folder مبدئياً لأنه يحتوي على تطبيقات فرعية
-            default  => 'system.generic-sector',
+            'app' => 'system.generic-app',
+            'mix' => 'system.generic-mix', // الـ Mix يعمل كـ Folder مبدئياً لأنه يحتوي على تطبيقات فرعية
+            default => 'system.generic-sector',
         };
     }
 
@@ -78,7 +82,7 @@ class Module extends Model
      */
     public function getResolvedForm(): ?string
     {
-        if (!empty($this->form_name)) {
+        if (! empty($this->form_name)) {
             return $this->form_name;
         }
 
@@ -88,17 +92,21 @@ class Module extends Model
 
         return null;
     }
+
     public function getBreadcrumbs(): array
     {
         $breadcrumbs = [];
-        $current = $this;
 
+        // Eager load ancestors to prevent N+1
+        $this->loadMissing('parent.parent.parent.parent');
+
+        $current = $this;
         while ($current) {
             // نضع العنصر في بداية المصفوفة ليكون الترتيب من الأكبر للأصغر
             array_unshift($breadcrumbs, [
                 'name' => $current->name, // سيتم ترجمته تلقائياً بفضل Spatie
-                'url'  => $current->route ? route($current->route) : '#',
-                'icon' => $current->icon
+                'url' => $current->route ? route($current->route) : '#',
+                'icon' => $current->icon,
             ]);
 
             // ننتقل للأب
